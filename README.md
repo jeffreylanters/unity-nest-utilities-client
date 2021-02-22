@@ -67,9 +67,14 @@ public class TestComponent : MonoBehaviour {
   private UserService userService = new UserService ();
 
   private IEnumerator Start () {
-    this.userService.Get ("100");
-    this.userService.GetMany ("100", "200", "300");
-    this.userService.GetAll ().Limit (100);
+    var request = this.userService.Get ("100");
+    yield return request.Send();
+    try {
+      request.GetResponse ();
+    }
+    catch (RequestException exception) {
+      // ...
+    }
   }
 }
 ```
