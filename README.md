@@ -37,7 +37,7 @@ Hi! My name is Jeffrey Lanters, thanks for checking out my modules! I've been a 
 Install the latest stable release using the Unity Package Manager by adding the following line to your `manifest.json` file located within your project's Packages directory.
 
 ```json
-"nl.elraccoone.tweens": "git+https://github.com/elraccoone/unity-nest-utilities-client"
+"nl.elraccoone.nest-utilities-client": "git+https://github.com/elraccoone/unity-nest-utilities-client"
 ```
 
 # Documentation
