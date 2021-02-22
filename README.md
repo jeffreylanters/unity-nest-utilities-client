@@ -73,7 +73,7 @@ public class TestComponent : MonoBehaviour {
       request.GetResponse ();
     }
     catch (RequestException exception) {
-      // ...
+      exception.statusCode;
     }
   }
 }
