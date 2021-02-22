@@ -10,7 +10,7 @@
 [![](https://img.shields.io/github/stars/elraccoone/unity-nest-utilities-client.svg?style=for-the-badge)]()
 [![](https://img.shields.io/badge/build-passing-brightgreen.svg?style=for-the-badge)]()
 
-Provides an extension on your HTTP services which interfaces with API's using the nest-utilities package.
+Providing a set of tools allowing your application to interface with servers running rest-full API's build using the Nest Utilities package.
 
 **&Lt;**
 [**Installation**](#installation) &middot;
