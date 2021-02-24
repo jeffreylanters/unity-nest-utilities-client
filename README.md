@@ -76,11 +76,11 @@ public class TestComponent : MonoBehaviour {
   private UserService userService = new UserService ();
 
   private void Test () {
-    var getUsersRequest = this.userService.Get ();
-    var getUserRequest = this.userService.Get (id: "xyz");
-    var createUserRequest = this.userService.Post (model: new User (...));
-    var updateUserRequest = this.userService.Patch (model: new User (...));
-    var deleteUserRequest = this.userService.Delete (id: "xyz");
+    this.userService.Get ();
+    this.userService.Get (id: "xyz");
+    this.userService.Post (model: new User (...));
+    this.userService.Patch (model: new User (...));
+    this.userService.Delete (id: "xyz");
   }
 }
 ```
