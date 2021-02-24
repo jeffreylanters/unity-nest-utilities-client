@@ -164,6 +164,8 @@ This parameter allows you to sort the response data on one or more fields in the
 public RequestBuilder<ModelType> Sort (params string[] fields);
 ```
 
+This parameter allows you to sort the response data on one or more fields in the desired order. Define descending in order to by it in descending order.
+
 ```csharp
 public RequestBuilder<ModelType> Sort (string field, bool descending);
 ```

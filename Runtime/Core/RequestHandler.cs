@@ -9,9 +9,6 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
   /// 
   public class RequestHandler<ModelType> : UnityWebRequest {
 
-    /// The request method.
-    private RequestMethod requestMethod { get; set; } = RequestMethod.UNSET;
-
     /// Defines whether the request did run into an error.
     internal bool hasError { get; private set; } = false;
 
@@ -60,7 +57,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// http method override header required for some API's since Unity might not
     /// send the right Verb.
     internal void SetRequestMethod (RequestMethod requestMethod) {
-      this.requestMethod = requestMethod;
+      this.method = requestMethod.ToString ().ToUpper ();
       this.AddHeader (name: "X-HTTP-Method-Override", value: requestMethod.ToString ().ToUpper ());
     }
 
@@ -74,7 +71,6 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
 
     ///
     internal IEnumerator SendRequest () {
-      Debug.Log (this.url);
       yield return this.SendWebRequest ();
       this.hasError = this.responseCode >= 400 || this.responseCode == 0;
       this.rawResponseData = this.downloadHandler.text;
