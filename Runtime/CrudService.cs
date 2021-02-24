@@ -19,7 +19,7 @@ namespace ElRaccoone.NestUtilitiesClient {
     private bool useInsecureProtocol { get; } = false;
 
     /// 
-    private string url {
+    public string url {
       get => string.Join (
         string.Empty,
         this.useInsecureProtocol == true ? "http" : "https",

@@ -1,4 +1,4 @@
-﻿namespace ElRaccoone.NestUtilitiesClient {
+﻿namespace ElRaccoone.NestUtilitiesClient.Core {
   /// 
   public enum RequestMethod {
 

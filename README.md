@@ -210,3 +210,25 @@ This parameter allows you to randomize the order of the response data. This para
 ```csharp
 public RequestBuilder<ModelType> Random ();
 ```
+
+## Custom Service Methods
+
+When the default CRUD service does not cover all your needs, then it is possible to extend your class with some custom methods as shown below.
+
+```csharp
+using ElRaccoone.NestUtilitiesClient;
+using ElRaccoone.NestUtilitiesClient.Core;
+
+public class UserService : CrudService<User> {
+  public UserService () : base (
+    hostname: "my-awesome-api.com",
+    resource: "user"
+  ) { }
+
+  public RequestBuilder<User> SomethingCustom (string value) =>
+    new RequestBuilder<User> (
+        requestMethod: RequestMethod.POST,
+        url: string.Join ("/", this.url, "somethingcustom", value),
+        model: new User ());
+}
+```
