@@ -4,20 +4,26 @@ using UnityEngine;
 
 namespace ElRaccoone.NestUtilitiesClient.Core {
 
-  /// 
+  /// The request builder is responsible for instanciating and providing data to
+  /// the request handler. The builder consists of a set of chainable methods which
+  /// can be used to construct requests.
   public class RequestBuilder<ModelType> {
 
-    /// 
+    /// The request handler is responsible for making the actual request.
     private RequestHandler<ModelType> requestHandler { get; } = new RequestHandler<ModelType> ();
 
-    /// 
+    /// Instanciates a new request builder with provided (nullable) request
+    /// middleware, a request method and url which will all be passed down to 
+    /// the request handler.
     public RequestBuilder (RequestMiddleware requestMiddleware, RequestMethod requestMethod, string url) {
       this.requestHandler.SetRequestMiddleware (requestMiddleware: requestMiddleware);
       this.requestHandler.SetRequestMethod (requestMethod: requestMethod);
       this.requestHandler.SetUrl (url: url);
     }
 
-    /// 
+    /// Instanciates a new request builder with provided (nullable) request
+    /// middleware, a request method, url en model as the request body which 
+    /// will all be passed down to the request handler.
     public RequestBuilder (RequestMiddleware requestMiddleware, RequestMethod requestMethod, string url, ModelType model) {
       this.requestHandler.SetRequestMiddleware (requestMiddleware: requestMiddleware);
       this.requestHandler.SetRequestMethod (requestMethod: requestMethod);
@@ -115,19 +121,24 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
       return this;
     }
 
-    /// 
+    /// Makes the actual request to the server. Yielded by the request handler,
+    /// the enumerator ends when the request was send. This method cannot catch.
     public IEnumerator Send () {
       yield return this.requestHandler.SendRequest ();
     }
 
-    /// 
+    /// Extracts the response from the made request, returning a model of the
+    /// generic model type. When the request did run into an error, an request
+    /// exception will be thrown.
     public ModelType GetResponse () {
       if (this.requestHandler.hasError == false)
         return this.requestHandler.responseData;
       throw this.requestHandler.GetException ();
     }
 
-    /// 
+    /// Extracts the raw response from the made request, returning a string. 
+    /// When the request did run into an error, an request exception will be 
+    /// thrown.
     public string GetRawResponse () {
       if (this.requestHandler.hasError == false)
         return this.requestHandler.rawResponseData;
