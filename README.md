@@ -202,7 +202,7 @@ This parameter allows you to randomize the order of the response data. This para
 public RequestBuilder<ModelType> Random ();
 ```
 
-## Adding Middleware
+## Writing Middleware
 
 Out of the box the CrudService will supplement your extended class with a basic methods to execute your calls. In a lot of cases you'll want to and define headers to send along with your requests.
 
@@ -213,7 +213,7 @@ using ElRaccoone.NestUtilitiesClient;
 
 public class CustomMiddleware : RequestMiddleware {
   public override Header[] GetHeaders () => new Header[] {
-    new Header ("Authorization", "...")
+    new Header (name: "Authorization", value: "...")
   };
 }
 ```
