@@ -46,7 +46,7 @@ The package revolves around the CrudService. Extending this service will grant y
 
 ## Getting started
 
-Creating a service for your resource is as simple as creating a new class and extending the crud service followed by some basic parameters and your model's type.
+Creating a service for your resource is as simple as creating a new class and extending the crud service followed by some basic parameters and your model's type. Every resource gets their own Service.
 
 ```csharp
 using ElRaccoone.NestUtilitiesClient;
@@ -60,21 +60,60 @@ public class UserService : CrudService<User> {
 }
 ```
 
-To use your newly created service, create an instance somewhere in your application.
+To use your newly created service, create an instance somewhere in your application. To get started with your first request, use one for the CRUD methods such as Get, Post, Delete or Patch. Once invoked, a request builder will be returned.
 
 ```csharp
 public class TestComponent : MonoBehaviour {
   private UserService userService = new UserService ();
 
-  private IEnumerator Start () {
-    var request = this.userService.Get ().Limit(5).Populate("parents", "clients");
+  private void Test () {
+    var getUsersRequest = this.userService.Get ();
+    var getUserRequest = this.userService.Get (id: "xyz");
+    var createUserRequest = this.userService.Post (model: new User (...));
+    var updateUserRequest = this.userService.Patch (model: new User (...));
+    var deleteUserRequest = this.userService.Delete (id: "xyz");
+  }
+}
+```
+
+Once created your request using the builder, it's time to send it over to the API. To do this, yield the Send method provided by the builder.
+
+```csharp
+public class TestComponent : MonoBehaviour {
+  private UserService userService = new UserService ();
+
+  private IEnumerator Test () {
+    var request = this.userService.Get ();
+    yield return request.Send();
+  }
+}
+```
+
+To confirm a request was successfull or get the response body, use the GetResponse method after sending your request. When something went wrong, a request exception will be thrown containing information to display or debug the problem. Use the GetRawResponse method in order to get the raw response data, this method can also throw an exception.
+
+```csharp
+public class TestComponent : MonoBehaviour {
+  private UserService userService = new UserService ();
+
+  private IEnumerator Test () {
+    var request = this.userService.Get ();
     yield return request.Send();
     try {
-      request.GetResponse ();
+      var users = request.GetResponse ();
     }
     catch (RequestException exception) {
-      exception.statusCode;
+      Debug.Log (exception.statusCode);
     }
   }
 }
+```
+
+## Chainable Options
+
+#### Authorize `version 1.0.0`
+
+Sets the authorization header allow the request to authorize itself on the server.
+
+```csharp
+public RequestBuilder<ModelType> Authorize (string token);
 ```
