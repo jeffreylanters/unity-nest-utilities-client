@@ -77,10 +77,10 @@ public class TestComponent : MonoBehaviour {
 
   private void Test () {
     this.userService.Get ();
-    this.userService.Get (id: "xyz");
+    this.userService.Get (id: "...");
     this.userService.Post (model: new User (...));
     this.userService.Patch (model: new User (...));
-    this.userService.Delete (id: "xyz");
+    this.userService.Delete (id: "...");
   }
 }
 ```
