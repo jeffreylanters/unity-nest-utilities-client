@@ -110,7 +110,7 @@ public class TestComponent : MonoBehaviour {
 
 ## Chainable Options
 
-#### Authorize `version 1.0.0`
+### Authorize `version 1.0.0`
 
 Sets the authorization header allow the request to authorize itself on the server.
 
