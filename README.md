@@ -202,9 +202,9 @@ This parameter allows you to randomize the order of the response data. This para
 public RequestBuilder<ModelType> Random ();
 ```
 
-## Adding Middlware
+## Adding Middleware
 
-Out of the box the CrudService will supplement your extended class with a basic HTTP service to execute your calls. In a lot of cases you'll want to and define headers to send along with your requests.
+Out of the box the CrudService will supplement your extended class with a basic methods to execute your calls. In a lot of cases you'll want to and define headers to send along with your requests.
 
 You can extend this behaviour by creating a new MiddleWare class which exposes a set of build in middleware methods. In this new class it is possible to override abstract methods which help you tailor the middleware with ease.
 
