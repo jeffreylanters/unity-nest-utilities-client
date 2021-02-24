@@ -97,7 +97,7 @@ public class TestComponent : MonoBehaviour {
 }
 ```
 
-To confirm a request was successful, or get the response body of it, use the GetResponse method after sending your Request. When something went wrong, a request exception will be thrown containing information tp debug the problem. Use the GetRawResponse method in order to get the raw response data, this method can also throw an exception.
+To confirm a request was successful, or get the response body of it, use the GetResponse method after sending your Request. When something went wrong, a request exception will be thrown containing information to debug the problem. Use the GetRawResponse method in order to get the raw response data, this method can also throw an exception.
 
 ```csharp
 public class TestComponent : MonoBehaviour {
