@@ -10,7 +10,7 @@
 [![](https://img.shields.io/github/stars/elraccoone/unity-nest-utilities-client.svg?style=for-the-badge)]()
 [![](https://img.shields.io/badge/build-passing-brightgreen.svg?style=for-the-badge)]()
 
-Providing a set of tools allowing your application to interface with servers running rest-full API's build using the Nest Utilities package.
+Providing a set of tools allowing your application to interface with servers running rest-full API's build using the Nest Utilities package using custom services and chainable options for complete flexibility.
 
 **&Lt;**
 [**Installation**](#installation) &middot;
@@ -56,7 +56,7 @@ The package revolves around the CrudService. Extending this service will grant y
 
 ## Getting started
 
-Creating a service for your resource is as simple as creating a new class and extending the crud service followed by some basic parameters and your model's type. Every resource gets their own Service.
+Start off by creating a service for each of your resources. This is as simple as creating a new class and extending the CRUD Service provided by the Namespace. Extend the constructor with some basic parameters and your Model's Type. The Model's Type is responsible for transfering data in our resource's format.
 
 ```csharp
 using ElRaccoone.NestUtilitiesClient;
@@ -64,13 +64,12 @@ using ElRaccoone.NestUtilitiesClient;
 public class UserService : CrudService<User> {
   public UserService () : base (
     hostname: "my-awesome-api.com",
-    resource: "user",
-    useInsecureProtocol: false
+    resource: "user"
   ) { }
 }
 ```
 
-To use your newly created service, create an instance somewhere in your application. To get started with your first request, use one for the CRUD methods such as Get, Post, Delete or Patch. Once invoked, a request builder will be returned.
+To use your newly created Service, simply create an instance somewhere in your application. Preferably in some sort of Network Component. To get started with your first request, use one for the CRUD methods such as Get, Post, Delete or Patch provided by your Service. Once instanciated, a newly created Request Builder will be returned.
 
 ```csharp
 public class TestComponent : MonoBehaviour {
@@ -86,7 +85,7 @@ public class TestComponent : MonoBehaviour {
 }
 ```
 
-Once created your request using the builder, it's time to send it over to the API. To do this, yield the Send method provided by the builder.
+Once created your Request using the Builder, it's time to send it over to your API. To do this, yield the Send method provided by the builder. This will start the request and send over your data over to the server.
 
 ```csharp
 public class TestComponent : MonoBehaviour {
@@ -99,7 +98,7 @@ public class TestComponent : MonoBehaviour {
 }
 ```
 
-To confirm a request was successfull or get the response body, use the GetResponse method after sending your request. When something went wrong, a request exception will be thrown containing information to display or debug the problem. Use the GetRawResponse method in order to get the raw response data, this method can also throw an exception.
+To confirm a request was successful, or get the response body of it, use the GetResponse method after sending your Request. When something went wrong, a request exception will be thrown containing information tp debug the problem. Use the GetRawResponse method in order to get the raw response data, this method can also throw an exception.
 
 ```csharp
 public class TestComponent : MonoBehaviour {
