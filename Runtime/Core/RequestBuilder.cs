@@ -11,23 +11,18 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     private RequestHandler<ModelType> requestHandler { get; } = new RequestHandler<ModelType> ();
 
     /// 
-    public RequestBuilder (RequestMethod requestMethod, string url) {
+    public RequestBuilder (RequestMiddleware requestMiddleware, RequestMethod requestMethod, string url) {
+      this.requestHandler.SetRequestMiddleware (requestMiddleware: requestMiddleware);
       this.requestHandler.SetRequestMethod (requestMethod: requestMethod);
       this.requestHandler.SetUrl (url: url);
     }
 
     /// 
-    public RequestBuilder (RequestMethod requestMethod, string url, ModelType model) {
+    public RequestBuilder (RequestMiddleware requestMiddleware, RequestMethod requestMethod, string url, ModelType model) {
+      this.requestHandler.SetRequestMiddleware (requestMiddleware: requestMiddleware);
       this.requestHandler.SetRequestMethod (requestMethod: requestMethod);
       this.requestHandler.SetUrl (url: url);
       this.requestHandler.SetModel (model);
-    }
-
-    /// Sets the authorization header allow the request to authorize itself on
-    /// the server.
-    public RequestBuilder<ModelType> Authorize (string token) {
-      this.requestHandler.AddHeader (name: "Authorization", value: token);
-      return this;
     }
 
     /// This parameter allows you to populate references to other collections in

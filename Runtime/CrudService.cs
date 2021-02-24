@@ -18,6 +18,9 @@ namespace ElRaccoone.NestUtilitiesClient {
     /// the secure HTTPS protocol.
     private bool useInsecureProtocol { get; } = false;
 
+    ///
+    private RequestMiddleware requestMiddleware { get; } = null;
+
     /// 
     public string url {
       get => string.Join (
@@ -27,33 +30,38 @@ namespace ElRaccoone.NestUtilitiesClient {
     }
 
     /// 
-    public CrudService (string hostname, string resource, bool useInsecureProtocol = false) {
+    public CrudService (string hostname, string resource, bool useInsecureProtocol = false, RequestMiddleware requestMiddleware = null) {
       this.hostname = hostname;
       this.resource = resource;
       this.useInsecureProtocol = useInsecureProtocol;
+      this.requestMiddleware = requestMiddleware;
     }
 
     /// 
     public RequestBuilder<ModelType[]> Get () =>
       new RequestBuilder<ModelType[]> (
+        requestMiddleware: this.requestMiddleware,
         requestMethod: RequestMethod.GET,
         url: string.Join ("/", this.url));
 
     /// 
     public RequestBuilder<ModelType> Get (string id) =>
       new RequestBuilder<ModelType> (
+        requestMiddleware: this.requestMiddleware,
         requestMethod: RequestMethod.GET,
         url: string.Join ("/", this.url, id));
 
     /// 
     public RequestBuilder<ModelType[]> Get (params string[] ids) =>
       new RequestBuilder<ModelType[]> (
+        requestMiddleware: this.requestMiddleware,
         requestMethod: RequestMethod.GET,
         url: string.Join ("/", this.url, string.Join (",", ids)));
 
     /// 
     public RequestBuilder<ModelType> Post (ModelType model) =>
       new RequestBuilder<ModelType> (
+        requestMiddleware: this.requestMiddleware,
         requestMethod: RequestMethod.POST,
         url: string.Join ("/", this.url),
         model: model);
@@ -61,6 +69,7 @@ namespace ElRaccoone.NestUtilitiesClient {
     /// 
     public RequestBuilder<ModelType> Put (ModelType model) =>
       new RequestBuilder<ModelType> (
+        requestMiddleware: this.requestMiddleware,
         requestMethod: RequestMethod.PUT,
         url: string.Join ("/", this.url),
         model: model);
@@ -68,6 +77,7 @@ namespace ElRaccoone.NestUtilitiesClient {
     /// 
     public RequestBuilder<ModelType> Delete (string id) =>
       new RequestBuilder<ModelType> (
+        requestMiddleware: this.requestMiddleware,
         requestMethod: RequestMethod.DELETE,
         url: string.Join ("/", this.url, id));
   }

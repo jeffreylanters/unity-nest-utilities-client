@@ -118,14 +118,6 @@ public class TestComponent : MonoBehaviour {
 
 ## Chainable Options
 
-#### Authorize
-
-Sets the authorization header allow the request to authorize itself on the server.
-
-```csharp
-public RequestBuilder<ModelType> Authorize (string token);
-```
-
 #### Populate
 
 This parameter allows you to populate references to other collections in the response.

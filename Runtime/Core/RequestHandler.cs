@@ -38,6 +38,13 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
       public ArrayType array = default;
     }
 
+    ///
+    internal void SetRequestMiddleware (RequestMiddleware requestMiddleware) {
+      if (requestMiddleware != null)
+        foreach (var _header in requestMiddleware.GetHeaders ())
+          this.AddHeader (name: _header.name, value: _header.value);
+    }
+
     /// Adds a header to the request.
     internal void AddHeader (string name, string value) {
       this.SetRequestHeader (name: name, value: value);
