@@ -10,7 +10,7 @@
 [![](https://img.shields.io/github/stars/elraccoone/unity-nest-utilities-client.svg?style=for-the-badge)]()
 [![](https://img.shields.io/badge/build-passing-brightgreen.svg?style=for-the-badge)]()
 
-Providing a set of tools allowing your application to interface with servers running rest-full API's build using the Nest Utilities package using custom services and chainable options for complete flexibility.
+Providing a set of tools allowing your application to interface with servers running rest-full API's build using the [Nest Utilities](https://github.com/MartinDrost/nest-utilities) package using custom services and chainable options for complete flexibility.
 
 **&Lt;**
 [**Installation**](#installation) &middot;
