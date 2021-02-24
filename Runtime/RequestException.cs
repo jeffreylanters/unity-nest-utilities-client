@@ -1,6 +1,7 @@
 ﻿using System;
 
 namespace ElRaccoone.NestUtilitiesClient {
+  
   /// 
   public class RequestException : Exception {
 

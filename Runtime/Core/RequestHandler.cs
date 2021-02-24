@@ -21,6 +21,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// The raw response data in text format.
     internal string rawResponseData { get; private set; } = "";
 
+    ///
     private bool hasQueryParameters { get; set; } = false;
 
     /// Instanciates a new request handler. When the handler is instanciated the
