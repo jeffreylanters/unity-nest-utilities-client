@@ -33,7 +33,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// array, it will be wrapped into this empty model in order for Unity to
     /// parse it contents since top level arrays are not supported in Unity.
     [Serializable]
-    internal class JsonArrayWrapper<ArrayType> {
+    private class JsonArrayWrapper<ArrayType> {
       public ArrayType array = default;
     }
 
@@ -82,7 +82,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     }
 
     /// 
-    public RequestException GetException () {
+    internal RequestException GetException () {
       return new RequestException (
         statusCode: this.responseCode,
         message: this.error,
