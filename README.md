@@ -202,6 +202,34 @@ This parameter allows you to randomize the order of the response data. This para
 public RequestBuilder<ModelType> Random ();
 ```
 
+## Adding Middlware
+
+Out of the box the CrudService will supplement your extended class with a basic HTTP service to execute your calls. In a lot of cases you'll want to and define headers to send along with your requests.
+
+You can extend this behaviour by creating a new MiddleWare class which exposes a set of build in middleware methods. In this new class it is possible to override abstract methods which help you tailor the middleware with ease.
+
+```csharp
+using ElRaccoone.NestUtilitiesClient;
+
+public class CustomMiddleware : RequestMiddleware {
+  public override Header[] GetHeaders () => new Header[] {
+    new Header ("Authorization", "...")
+  };
+}
+```
+
+```csharp
+using ElRaccoone.NestUtilitiesClient;
+
+public class UserService : CrudService<User> {
+  public UserService () : base (
+    hostname: "my-awesome-api.com",
+    resource: "user",
+    requestMiddleware: new CustomMiddleware()
+  ) { }
+}
+```
+
 ## Custom Service Methods
 
 When the default CRUD service does not cover all your needs, then it is possible to extend your class with some custom methods as shown below.
