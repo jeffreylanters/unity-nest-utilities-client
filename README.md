@@ -246,6 +246,7 @@ public class UserService : CrudService<User> {
 
   public RequestBuilder<User> SomethingCustom (string value) =>
     new RequestBuilder<User> (
+      requestMiddleware: this.requestMiddleware,
       requestMethod: RequestMethod.POST,
       url: string.Join ("/", this.url, "somethingcustom", value),
       model: new User ());
