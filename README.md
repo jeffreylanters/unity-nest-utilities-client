@@ -117,3 +117,85 @@ Sets the authorization header allow the request to authorize itself on the serve
 ```csharp
 public RequestBuilder<ModelType> Authorize (string token);
 ```
+
+### Populate `version 1.0.0`
+
+This parameter allows you to populate references to other collections in the response.
+
+```csharp
+public RequestBuilder<ModelType> Populate (params string[] fields);
+```
+
+### Filter `version 1.0.0` (Obsolete)
+
+This parameter allows you to filter the response data on one or more fields on specific values. You can filter on multiple fields by chaing the filter method.
+
+```csharp
+public RequestBuilder<ModelType> Filter (string field, string filter);
+```
+
+### Search `version 1.0.0` (Obsolete)
+
+This parameter allows you to search through all fields of the response using the same value. Results matching the value in at least one of the fields will be shown in the response.
+
+```csharp
+public RequestBuilder<ModelType> Search (string query);
+```
+
+This parameter allows you to search through all fields of the response using the same value. Results matching the value in at least one of the fields will be shown in the response. You can limit the fields which fields in which the algorithm searches using the search scope parameter.
+
+```csharp
+public RequestBuilder<ModelType> Search (string query, params string[] scopes);
+```
+
+### Pick `version 1.0.0`
+
+This parameter allows you to define which fields you want the results to contain. If one or more fields have been picked for a layer, the remaining layers will be omitted from the response. You can deep pick fields by separating fields using a dot (f.e. brewers.name).
+
+```csharp
+public RequestBuilder<ModelType> Pick (params string[] fields);
+```
+
+### Sort `version 1.0.0`
+
+This parameter allows you to sort the response data on one or more fields in the desired order.
+
+```csharp
+public RequestBuilder<ModelType> Sort (params string[] fields);
+```
+
+```csharp
+public RequestBuilder<ModelType> Sort (string field, bool descending);
+```
+
+### Offset `version 1.0.0`
+
+This parameter allows you to skip the first n number of results.
+
+```csharp
+public RequestBuilder<ModelType> Offset (int amount);
+```
+
+### Limit `version 1.0.0`
+
+This parameter allows you to limit the response to only show the next n number of results.
+
+```csharp
+public RequestBuilder<ModelType> Limit (int amount);
+```
+
+### Distinct `version 1.0.0`
+
+This parameter allows you to find the distinct values for a specified field. The returned models will each contain unique values for that field. When multiple models in the actual response would have the same value, the first encountered model will be chosen based on the sort attribute.
+
+```csharp
+public RequestBuilder<ModelType> Distinct (string field);
+```
+
+### Random `version 1.0.0`
+
+This parameter allows you to randomize the order of the response data. This parameter holds priority over the sort parameter which means that the sort will be omitted when random is defined.
+
+```csharp
+public RequestBuilder<ModelType> Random ();
+```
