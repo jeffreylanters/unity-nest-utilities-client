@@ -41,8 +41,8 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// fields on specific values. You can filter on multiple fields by chaing
     /// the filter method.
     [Obsolete ("The Filter parameter is no longer supported by future Nest Utilities versions.")]
-    public RequestBuilder<ModelType> Filter (string field, string filter) {
-      this.requestHandler.AddQueryParameter (name: $"filter[{field}]", value: filter);
+    public RequestBuilder<ModelType> Filter (string field, string value) {
+      this.requestHandler.AddQueryParameter (name: $"filter[{field}]", value: value);
       return this;
     }
 
@@ -60,8 +60,8 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// fields will be shown in the response. You can limit the fields which 
     /// fields in which the algorithm searches using the search scope parameter.
     [Obsolete ("The Search parameter is no longer supported by future Nest Utilities versions.")]
-    public RequestBuilder<ModelType> Search (string query, params string[] scopes) {
-      this.requestHandler.AddQueryParameter (name: "searchScope", value: string.Join (",", scopes));
+    public RequestBuilder<ModelType> Search (string query, params string[] fields) {
+      this.requestHandler.AddQueryParameter (name: "searchScope", value: string.Join (",", fields));
       return this.Search (query);
     }
 

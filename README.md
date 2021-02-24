@@ -140,7 +140,7 @@ public RequestBuilder<ModelType> Populate (params string[] fields);
 This parameter allows you to filter the response data on one or more fields on specific values. You can filter on multiple fields by chaing the filter method.
 
 ```csharp
-public RequestBuilder<ModelType> Filter (string field, string filter);
+public RequestBuilder<ModelType> Filter (string field, string value);
 ```
 
 #### Search `version 1.0.0` (Obsolete)
@@ -154,7 +154,7 @@ public RequestBuilder<ModelType> Search (string query);
 This parameter allows you to search through all fields of the response using the same value. Results matching the value in at least one of the fields will be shown in the response. You can limit the fields which fields in which the algorithm searches using the search scope parameter.
 
 ```csharp
-public RequestBuilder<ModelType> Search (string query, params string[] scopes);
+public RequestBuilder<ModelType> Search (string query, params string[] fields);
 ```
 
 #### Pick `version 1.0.0`
@@ -227,8 +227,8 @@ public class UserService : CrudService<User> {
 
   public RequestBuilder<User> SomethingCustom (string value) =>
     new RequestBuilder<User> (
-        requestMethod: RequestMethod.POST,
-        url: string.Join ("/", this.url, "somethingcustom", value),
-        model: new User ());
+      requestMethod: RequestMethod.POST,
+      url: string.Join ("/", this.url, "somethingcustom", value),
+      model: new User ());
 }
 ```
