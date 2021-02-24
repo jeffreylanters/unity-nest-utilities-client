@@ -19,5 +19,10 @@ namespace ElRaccoone.NestUtilitiesClient {
       this.message = message;
       this.url = url;
     }
+
+    ///
+    public override string ToString () {
+      return $"Request Exception with Status Code {this.statusCode} while sending to {this.url} {this.message}";
+    }
   }
 }
