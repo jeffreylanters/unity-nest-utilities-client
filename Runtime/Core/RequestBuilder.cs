@@ -20,7 +20,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     public RequestBuilder (RequestMethod requestMethod, string url, ModelType model) {
       this.requestHandler.SetRequestMethod (requestMethod: requestMethod);
       this.requestHandler.SetUrl (url: url);
-      this.requestHandler.SetBody (JsonUtility.ToJson (model));
+      this.requestHandler.SetModel (model);
     }
 
     /// Sets the authorization header allow the request to authorize itself on
