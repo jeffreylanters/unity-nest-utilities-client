@@ -6,7 +6,9 @@ using System;
 
 namespace ElRaccoone.NestUtilitiesClient.Core {
 
-  /// 
+  /// The request handler is responsible for sending the actual request over to
+  /// the server and consists of a set of methods allowing for the request to be
+  /// build including headers, query parameters and payloads.
   public class RequestHandler<ModelType> : UnityWebRequest {
 
     /// Defines whether the request did run into an error.
@@ -21,7 +23,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// The raw response data in text format.
     internal string rawResponseData { get; private set; } = "";
 
-    ///
+    /// Defines whether the request has one or more query parameters.
     private bool hasQueryParameters { get; set; } = false;
 
     /// Instanciates a new request handler. When the handler is instanciated the
