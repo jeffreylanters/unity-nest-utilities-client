@@ -272,6 +272,22 @@ public class UserService : CrudService<User> {
 }
 ```
 
+#### OnGetHeaders
+
+Implement this virtual method in order to intercept the headers of every request made by this service.
+
+```csharp
+public virtual RequestMiddleware.Header[] OnGetHeaders ();
+```
+
+#### OnRequestDidCatch
+
+Implement this virtual method in order to catch every request which did run into an HTTP error.
+
+```csharp
+public virtual void OnRequestDidCatch (RequestException exception)
+```
+
 ## Custom Service Methods
 
 When the default CRUD service does not cover all your needs, then it is possible to extend your class with some custom methods as shown below.
