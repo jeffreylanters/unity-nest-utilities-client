@@ -34,59 +34,71 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// This parameter allows you to populate references to other collections in
     /// the response.
     public RequestBuilder<ModelType> Populate (params string[] fields) {
-      this.requestHandler.AddQueryParameter (name: "populate", value: string.Join (",", fields));
+      foreach (var _field in fields)
+        this.requestHandler.AddQueryParameter (name: "populate[]", value: _field);
       return this;
-    }
-
-    /// This parameter allows you to filter the response data on one or more 
-    /// fields on specific values. You can filter on multiple fields by chaing
-    /// the filter method.
-    [Obsolete ("The Filter parameter is no longer supported by future Nest Utilities versions.")]
-    public RequestBuilder<ModelType> Filter (string field, string value) {
-      this.requestHandler.AddQueryParameter (name: $"filter[{field}]", value: value);
-      return this;
-    }
-
-    /// This parameter allows you to search through all fields of the response 
-    /// using the same value. Results matching the value in at least one of the 
-    /// fields will be shown in the response.
-    [Obsolete ("The Search parameter is no longer supported by future Nest Utilities versions.")]
-    public RequestBuilder<ModelType> Search (string query) {
-      this.requestHandler.AddQueryParameter (name: "search", value: query);
-      return this;
-    }
-
-    /// This parameter allows you to search through all fields of the response 
-    /// using the same value. Results matching the value in at least one of the 
-    /// fields will be shown in the response. You can limit the fields which 
-    /// fields in which the algorithm searches using the search scope parameter.
-    [Obsolete ("The Search parameter is no longer supported by future Nest Utilities versions.")]
-    public RequestBuilder<ModelType> Search (string query, params string[] fields) {
-      this.requestHandler.AddQueryParameter (name: "searchScope", value: string.Join (",", fields));
-      return this.Search (query);
     }
 
     /// This parameter allows you to define which fields you want the results to
-    /// contain. If one or more fields have been picked for a layer, the 
-    /// remaining layers will be omitted from the response. You can deep pick 
+    /// contain. If one or more fields have been selected for a layer, the 
+    /// remaining layers will be omitted from the response. You can deep select 
     /// fields by separating fields using a dot (f.e. brewers.name).
-    public RequestBuilder<ModelType> Pick (params string[] fields) {
-      this.requestHandler.AddQueryParameter (name: "pick", value: string.Join (",", fields));
+    public RequestBuilder<ModelType> Select (params string[] fields) {
+      foreach (var _field in fields)
+        this.requestHandler.AddQueryParameter (name: "select[]", value: _field);
       return this;
     }
 
     /// This parameter allows you to sort the response data on one or more 
     /// fields in the desired order.
     public RequestBuilder<ModelType> Sort (params string[] fields) {
-      this.requestHandler.AddQueryParameter (name: "sort", value: string.Join (",", fields));
+      foreach (var _field in fields)
+        this.requestHandler.AddQueryParameter (name: "sort[]", value: _field);
       return this;
     }
 
     /// This parameter allows you to sort the response data on one or more 
-    /// fields in the desired order. Define descending in order to by it in 
-    /// descending order.
-    public RequestBuilder<ModelType> Sort (string field, bool descending) {
-      this.requestHandler.AddQueryParameter (name: "sort", value: descending == true ? $"-{field}" : field);
+    /// fields in the desired order. Define one or more sorting options.
+    public RequestBuilder<ModelType> Sort (string field, SortingOption sortingOptions) {
+      if (sortingOptions.HasFlag (SortingOption.Descending) == true)
+        field = $"-{field}";
+      this.requestHandler.AddQueryParameter (name: "sort[]", value: field);
+      return this;
+    }
+
+    /// This parameter allows you to match the response data on a specific 
+    /// exact value on a specific field including the casing.
+    public RequestBuilder<ModelType> MatchExact (string field, string value) {
+      this.requestHandler.AddQueryParameter (name: $"match[{field}]", value: value);
+      return this;
+    }
+
+    /// This parameter allows you to match the response data based on a regex
+    /// filter on a specific field.
+    public RequestBuilder<ModelType> MatchRegex (string field, string value) {
+      this.requestHandler.AddQueryParameter (name: $"match[{field}][$regex]", value: value);
+      return this;
+    }
+
+    /// This parameter allows you to match the response data based on a regex
+    /// filter on a specific field. One or more matching options will be 
+    /// translated into regex options.
+    public RequestBuilder<ModelType> MatchRegex (string field, string value, MatchingOption matchingOptions) {
+      var _regexOptions = "";
+      if (matchingOptions.HasFlag (MatchingOption.Global) == true)
+        _regexOptions += "g";
+      if (matchingOptions.HasFlag (MatchingOption.CaseInsensitive) == true)
+        _regexOptions += "i";
+      if (matchingOptions.HasFlag (MatchingOption.MultiLine) == true)
+        _regexOptions += "m";
+      if (matchingOptions.HasFlag (MatchingOption.SingleLine) == true)
+        _regexOptions += "s";
+      if (matchingOptions.HasFlag (MatchingOption.Unicode) == true)
+        _regexOptions += "u";
+      if (matchingOptions.HasFlag (MatchingOption.Sticky) == true)
+        _regexOptions += "y";
+      this.requestHandler.AddQueryParameter (name: $"match[{field}][$options]", value: _regexOptions);
+      this.requestHandler.AddQueryParameter (name: $"match[{field}][$regex]", value: value);
       return this;
     }
 
