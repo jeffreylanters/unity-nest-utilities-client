@@ -118,6 +118,22 @@ public class TestComponent : MonoBehaviour {
 
 ## Chainable Options
 
+Chainable options can be used for altering the way your API is handling your requests.
+
+```csharp
+public class TestComponent : MonoBehaviour {
+  private UserService userService = new UserService ();
+
+  private IEnumerator Test () {
+    var request = this.userService
+      .Get ()
+      .Limit (amount: 10)
+      .Sort (field: "firstName", sortingOptions: SortingOption.Descending)
+      .MatchRegex (field: "email", value: "hulan", matchingOptions: MatchingOption.CaseInsensitive | MatchingOption.Global);
+  }
+}
+```
+
 #### Populate
 
 This parameter allows you to populate references to other collections in the response.
