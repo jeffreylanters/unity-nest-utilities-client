@@ -41,28 +41,28 @@ namespace ElRaccoone.NestUtilitiesClient {
     public RequestBuilder<ModelType[]> Get () =>
       new RequestBuilder<ModelType[]> (
         requestMiddleware: this.requestMiddleware,
-        requestMethod: RequestMethod.GET,
+        requestMethod: RequestMethod.Get,
         url: string.Join ("/", this.url));
 
     /// 
     public RequestBuilder<ModelType> Get (string id) =>
       new RequestBuilder<ModelType> (
         requestMiddleware: this.requestMiddleware,
-        requestMethod: RequestMethod.GET,
+        requestMethod: RequestMethod.Get,
         url: string.Join ("/", this.url, id));
 
     /// 
     public RequestBuilder<ModelType[]> Get (params string[] ids) =>
       new RequestBuilder<ModelType[]> (
         requestMiddleware: this.requestMiddleware,
-        requestMethod: RequestMethod.GET,
+        requestMethod: RequestMethod.Get,
         url: string.Join ("/", this.url, string.Join (",", ids)));
 
     /// 
     public RequestBuilder<ModelType> Post (ModelType model) =>
       new RequestBuilder<ModelType> (
         requestMiddleware: this.requestMiddleware,
-        requestMethod: RequestMethod.POST,
+        requestMethod: RequestMethod.Post,
         url: string.Join ("/", this.url),
         model: model);
 
@@ -70,7 +70,7 @@ namespace ElRaccoone.NestUtilitiesClient {
     public RequestBuilder<ModelType> Put (ModelType model) =>
       new RequestBuilder<ModelType> (
         requestMiddleware: this.requestMiddleware,
-        requestMethod: RequestMethod.PUT,
+        requestMethod: RequestMethod.Put,
         url: string.Join ("/", this.url),
         model: model);
 
@@ -78,7 +78,7 @@ namespace ElRaccoone.NestUtilitiesClient {
     public RequestBuilder<ModelType> Delete (string id) =>
       new RequestBuilder<ModelType> (
         requestMiddleware: this.requestMiddleware,
-        requestMethod: RequestMethod.DELETE,
+        requestMethod: RequestMethod.Delete,
         url: string.Join ("/", this.url, id));
   }
 }

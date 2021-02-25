@@ -1,23 +1,21 @@
 ﻿namespace ElRaccoone.NestUtilitiesClient.Core {
-  /// 
+
+  /// Defines the method or verb a request will be send as.
   public enum RequestMethod {
 
-    /// 
-    UNSET = 0,
+    /// Sends the request using a GET verb.
+    Get = 1,
 
-    /// 
-    GET = 1,
+    /// Sends the request using a POST verb.
+    Post = 2,
 
-    /// 
-    POST = 2,
+    /// Sends the request using a PATCH verb.
+    Patch = 3,
 
-    /// 
-    PATCH = 3,
+    /// Sends the request using a PUT verb.
+    Put = 4,
 
-    /// 
-    PUT = 4,
-
-    /// 
-    DELETE = 5,
+    /// Sends the request using a DELETE verb.
+    Delete = 5,
   }
 }
