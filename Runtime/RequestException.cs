@@ -15,19 +15,19 @@ namespace ElRaccoone.NestUtilitiesClient {
     public string url { get; } = "";
 
     ///
-    public string data { get; } = "";
+    public string rawResponseData { get; } = "";
 
     /// 
-    public RequestException (long statusCode, string message, string url, string data) {
+    public RequestException (long statusCode, string message, string url, string rawResponseData) {
       this.statusCode = statusCode;
       this.message = message;
       this.url = url;
-      this.data = data;
+      this.rawResponseData = rawResponseData;
     }
 
     ///
     public override string ToString () {
-      return $"Request Exception with Status Code {this.statusCode} while sending to {this.url} {this.message}\n{this.data}";
+      return $"Request Exception with Status Code {this.statusCode} while sending to {this.url} {this.message}\n{this.rawResponseData}";
     }
   }
 }

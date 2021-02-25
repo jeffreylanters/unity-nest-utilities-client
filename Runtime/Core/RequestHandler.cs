@@ -100,7 +100,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
         statusCode: this.responseCode,
         message: this.error,
         url: this.url,
-        data: this.rawResponseData
+        rawResponseData: this.rawResponseData
       );
     }
   }
