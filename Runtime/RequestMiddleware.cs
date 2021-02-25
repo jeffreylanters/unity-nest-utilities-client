@@ -22,6 +22,9 @@ namespace ElRaccoone.NestUtilitiesClient {
     }
 
     ///
-    public virtual Header[] GetHeaders () => new Header[] { };
+    public virtual Header[] OnGetHeaders () => new Header[] { };
+
+    ///
+    public virtual void OnRequestDidCatch (RequestException exception) { }
   }
 }

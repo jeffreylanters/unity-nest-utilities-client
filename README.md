@@ -250,9 +250,13 @@ You can extend this behaviour by creating a new MiddleWare class which exposes a
 using ElRaccoone.NestUtilitiesClient;
 
 public class CustomMiddleware : RequestMiddleware {
-  public override Header[] GetHeaders () => new Header[] {
+  public override Header[] OnGetHeaders () => new Header[] {
     new Header (name: "Authorization", value: "...")
   };
+
+  public override void OnRequestDidCatch (RequestException exception) {
+    Debug.Log ($"An error occured! {exception}");
+  }
 }
 ```
 

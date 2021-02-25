@@ -10,11 +10,14 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// The request handler is responsible for making the actual request.
     private RequestHandler<ModelType> requestHandler { get; } = new RequestHandler<ModelType> ();
 
+    ///
+    private RequestMiddleware requestMiddleware { get; } = null;
+
     /// Instanciates a new request builder with provided (nullable) request
     /// middleware, a request method and url which will all be passed down to 
     /// the request handler.
     public RequestBuilder (RequestMiddleware requestMiddleware, RequestMethod requestMethod, string url) {
-      this.requestHandler.SetRequestMiddleware (requestMiddleware: requestMiddleware);
+      this.requestMiddleware = requestMiddleware;
       this.requestHandler.SetRequestMethod (requestMethod: requestMethod);
       this.requestHandler.SetUrl (url: url);
     }
@@ -23,7 +26,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// middleware, a request method, url en model as the request body which 
     /// will all be passed down to the request handler.
     public RequestBuilder (RequestMiddleware requestMiddleware, RequestMethod requestMethod, string url, ModelType model) {
-      this.requestHandler.SetRequestMiddleware (requestMiddleware: requestMiddleware);
+      this.requestMiddleware = requestMiddleware;
       this.requestHandler.SetRequestMethod (requestMethod: requestMethod);
       this.requestHandler.SetUrl (url: url);
       this.requestHandler.SetModel (model);
@@ -133,8 +136,14 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
 
     /// Makes the actual request to the server. Yielded by the request handler,
     /// the enumerator ends when the request was send. This method cannot catch.
+    /// When the request middleware is defined, these methods will also be invoked.
     public IEnumerator Send () {
+      if (this.requestMiddleware != null)
+        foreach (var _header in this.requestMiddleware.OnGetHeaders ())
+          this.requestHandler.AddHeader (name: _header.name, value: _header.value);
       yield return this.requestHandler.SendRequest ();
+      if (this.requestHandler.hasError == true && this.requestMiddleware != null)
+        this.requestMiddleware.OnRequestDidCatch (this.requestHandler.GetException ());
     }
 
     /// Extracts the response from the made request, returning a model of the
