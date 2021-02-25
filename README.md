@@ -126,34 +126,12 @@ This parameter allows you to populate references to other collections in the res
 public RequestBuilder<ModelType> Populate (params string[] fields);
 ```
 
-#### Filter (Obsolete)
+#### Select
 
-This parameter allows you to filter the response data on one or more fields on specific values. You can filter on multiple fields by chaing the filter method.
-
-```csharp
-public RequestBuilder<ModelType> Filter (string field, string value);
-```
-
-#### Search (Obsolete)
-
-This parameter allows you to search through all fields of the response using the same value. Results matching the value in at least one of the fields will be shown in the response.
+This parameter allows you to define which fields you want the results to contain. If one or more fields have been selected for a layer, the remaining layers will be omitted from the response. You can deep select fields by separating fields using a dot (f.e. brewers.name).
 
 ```csharp
-public RequestBuilder<ModelType> Search (string query);
-```
-
-This parameter allows you to search through all fields of the response using the same value. Results matching the value in at least one of the fields will be shown in the response. You can limit the fields which fields in which the algorithm searches using the search scope parameter.
-
-```csharp
-public RequestBuilder<ModelType> Search (string query, params string[] fields);
-```
-
-#### Pick
-
-This parameter allows you to define which fields you want the results to contain. If one or more fields have been picked for a layer, the remaining layers will be omitted from the response. You can deep pick fields by separating fields using a dot (f.e. brewers.name).
-
-```csharp
-public RequestBuilder<ModelType> Pick (params string[] fields);
+public RequestBuilder<ModelType> Select (params string[] fields);
 ```
 
 #### Sort
@@ -164,10 +142,32 @@ This parameter allows you to sort the response data on one or more fields in the
 public RequestBuilder<ModelType> Sort (params string[] fields);
 ```
 
-This parameter allows you to sort the response data on one or more fields in the desired order. Define descending in order to by it in descending order.
+This parameter allows you to sort the response data on one or more fields in the desired order. Define one or more sorting options.
 
 ```csharp
-public RequestBuilder<ModelType> Sort (string field, bool descending);
+public RequestBuilder<ModelType> Sort (string field, SortingOption sortingOptions);
+```
+
+#### Match Exact
+
+This parameter allows you to match the response data on a specific exact value on a specific field including the casing.
+
+```csharp
+public RequestBuilder<ModelType> MatchExact (string field, string value);
+```
+
+#### Match Regex
+
+This parameter allows you to match the response data based on a regex filter on a specific field.
+
+```csharp
+public RequestBuilder<ModelType> MatchRegex (string field, string value);
+```
+
+This parameter allows you to match the response data based on a regex filter on a specific field. One or more matching options will be translated into regex options.
+
+```csharp
+public RequestBuilder<ModelType> MatchRegex (string field, string value, MatchingOption matchingOptions);
 ```
 
 #### Offset
