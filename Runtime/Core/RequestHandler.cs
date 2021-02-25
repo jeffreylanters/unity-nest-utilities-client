@@ -40,7 +40,8 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
       public ArrayType array = default;
     }
 
-    ///
+    /// Sets the middleware for this request handler, the middleware will be
+    /// invoked immediately. The middleware may be null. 
     internal void SetRequestMiddleware (RequestMiddleware requestMiddleware) {
       if (requestMiddleware != null)
         foreach (var _header in requestMiddleware.GetHeaders ())
@@ -79,7 +80,9 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
       this.uploadHandler.contentType = "application/json";
     }
 
-    ///
+    /// Sends and yields the actual request. Both hasError, hasResponseData and 
+    /// the raw response data will always be set when invoking. If no error did
+    /// occur and response has body, the response data will be set.
     internal IEnumerator SendRequest () {
       yield return this.SendWebRequest ();
       this.hasError = this.responseCode >= 400 || this.responseCode == 0;
@@ -96,7 +99,8 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
       return new RequestException (
         statusCode: this.responseCode,
         message: this.error,
-        url: this.url
+        url: this.url,
+        data: this.rawResponseData
       );
     }
   }
