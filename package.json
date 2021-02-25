@@ -1,6 +1,6 @@
 {
   "name": "nl.elraccoone.nest-utilities-client",
   "displayName": "Nest Utilities Client",
-  "version": "1.1.2",
+  "version": "1.1.0",
   "description": "Providing a set of tools allowing your application to interface with servers running rest-full API's build using the Nest Utilities package with custom services and chainable options for complete flexibility."
 }
