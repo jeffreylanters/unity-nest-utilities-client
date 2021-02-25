@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ElRaccoone.NestUtilitiesClient {
+﻿namespace ElRaccoone.NestUtilitiesClient {
 
   /// 
   public abstract class RequestMiddleware {

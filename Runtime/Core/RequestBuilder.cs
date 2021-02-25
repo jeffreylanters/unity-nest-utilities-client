@@ -10,7 +10,9 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// The request handler is responsible for making the actual request.
     private RequestHandler<ModelType> requestHandler { get; } = new RequestHandler<ModelType> ();
 
-    ///
+    /// The request middleware can be set from the initialization of the class.
+    /// When set, it's overwritten methods will be invoked when the request is
+    /// being or has been sendt. Reference may be null.
     private RequestMiddleware requestMiddleware { get; } = null;
 
     /// Instanciates a new request builder with provided (nullable) request
@@ -96,8 +98,6 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
         _regexOptions += "s";
       if (matchingOptions.HasFlag (MatchingOption.Unicode) == true)
         _regexOptions += "u";
-      if (matchingOptions.HasFlag (MatchingOption.Sticky) == true)
-        _regexOptions += "y";
       this.requestHandler.AddQueryParameter (name: $"match[{field}][$options]", value: _regexOptions);
       this.requestHandler.AddQueryParameter (name: $"match[{field}][$regex]", value: value);
       return this;

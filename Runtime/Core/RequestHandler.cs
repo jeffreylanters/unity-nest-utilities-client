@@ -86,7 +86,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
           JsonUtility.FromJson<ModelType> (json: this.rawResponseData);
     }
 
-    /// 
+    /// Returns a request exception containing meta data about the request.
     internal RequestException GetException () {
       return new RequestException (
         statusCode: this.responseCode,
