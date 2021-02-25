@@ -285,7 +285,7 @@ public virtual RequestMiddleware.Header[] OnGetHeaders ();
 Implement this virtual method in order to catch every request which did run into an HTTP error.
 
 ```csharp
-public virtual void OnRequestDidCatch (RequestException exception)
+public virtual void OnRequestDidCatch (RequestException exception);
 ```
 
 ## Custom Service Methods
