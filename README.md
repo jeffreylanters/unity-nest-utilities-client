@@ -92,7 +92,7 @@ public class TestComponent : MonoBehaviour {
   private UserService userService = new UserService ();
 
   private IEnumerator Test () {
-    yield return this.userService.Get ().Send ();
+    yield return this.userService.Post (new User ()).Send ();
   }
 }
 ```
