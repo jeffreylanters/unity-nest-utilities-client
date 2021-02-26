@@ -89,10 +89,9 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// Returns a request exception containing meta data about the request.
     internal RequestException GetException () {
       return new RequestException (
-        statusCode: this.responseCode,
-        message: this.error,
-        url: this.url,
-        rawResponseData: this.rawResponseData
+        statusCode: (int)this.responseCode,
+        rawResponseData: this.rawResponseData,
+        url: this.url
       );
     }
   }

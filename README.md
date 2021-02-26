@@ -112,7 +112,7 @@ public class TestComponent : MonoBehaviour {
       var users = request.GetResponse ();
     }
     catch (RequestException exception) {
-      Debug.Log (exception.statusCode);
+      Debug.Log (exception);
     }
   }
 }
@@ -257,7 +257,8 @@ public class CustomMiddleware : RequestMiddleware {
   };
 
   public override void OnRequestDidCatch (RequestException exception) {
-    Debug.Log ($"An error occured! {exception}");
+    if (exception.statusCodeDefinition == StatusCodeDefinition.Unauthorized)
+      Debug.Log ("Return to login-screen!");
   }
 }
 ```
