@@ -138,7 +138,7 @@ public class TestComponent : MonoBehaviour {
 
 #### Populate
 
-> This option is only available on Get requests.
+> This option is only available on Get / Read requests.
 
 This parameter allows you to populate references to other collections in the response.
 
@@ -148,7 +148,7 @@ public RequestBuilder<ModelType> Populate (params string[] fields);
 
 #### Select
 
-> This option is only available on Get requests.
+> This option is only available on Get / Read requests.
 
 This parameter allows you to define which fields you want the results to contain. If one or more fields have been selected for a layer, the remaining layers will be omitted from the response. You can deep select fields by separating fields using a dot (f.e. brewers.name).
 
@@ -158,7 +158,7 @@ public RequestBuilder<ModelType> Select (params string[] fields);
 
 #### Sort
 
-> This option is only available on Get requests.
+> This option is only available on Get / Read requests.
 
 This parameter allows you to sort the response data on one or more fields in the desired order.
 
@@ -166,7 +166,7 @@ This parameter allows you to sort the response data on one or more fields in the
 public RequestBuilder<ModelType> Sort (params string[] fields);
 ```
 
-> This option is only available on Get requests.
+> This option is only available on Get / Read requests.
 
 This parameter allows you to sort the response data on one or more fields in the desired order. Define one or more sorting options.
 
@@ -176,7 +176,7 @@ public RequestBuilder<ModelType> Sort (string field, SortingOption sortingOption
 
 #### Match Exact
 
-> This option is only available on Get requests.
+> This option is only available on Get / Read requests.
 
 This parameter allows you to match the response data on a specific exact value on a specific field including the casing.
 
@@ -186,7 +186,7 @@ public RequestBuilder<ModelType> MatchExact (string field, string value);
 
 #### Match Regex
 
-> This option is only available on Get requests.
+> This option is only available on Get / Read requests.
 
 This parameter allows you to match the response data based on a regex filter on a specific field.
 
@@ -194,7 +194,7 @@ This parameter allows you to match the response data based on a regex filter on 
 public RequestBuilder<ModelType> MatchRegex (string field, string value);
 ```
 
-> This option is only available on Get requests.
+> This option is only available on Get / Read requests.
 
 This parameter allows you to match the response data based on a regex filter on a specific field. One or more matching options will be translated into regex options.
 
@@ -204,7 +204,7 @@ public RequestBuilder<ModelType> MatchRegex (string field, string value, Matchin
 
 #### Offset
 
-> This option is only available on Get requests.
+> This option is only available on Get / Read requests.
 
 This parameter allows you to skip the first n number of results.
 
@@ -214,7 +214,7 @@ public RequestBuilder<ModelType> Offset (int amount);
 
 #### Limit
 
-> This option is only available on Get requests.
+> This option is only available on Get / Read requests.
 
 This parameter allows you to limit the response to only show the next n number of results.
 
@@ -224,7 +224,7 @@ public RequestBuilder<ModelType> Limit (int amount);
 
 #### Distinct
 
-> This option is only available on Get requests.
+> This option is only available on Get / Read requests.
 
 This parameter allows you to find the distinct values for a specified field. The returned models will each contain unique values for that field. When multiple models in the actual response would have the same value, the first encountered model will be chosen based on the sort attribute.
 
@@ -234,7 +234,7 @@ public RequestBuilder<ModelType> Distinct (string field);
 
 #### Random
 
-> This option is only available on Get requests.
+> This option is only available on Get / Read requests.
 
 This parameter allows you to randomize the order of the response data. This parameter holds priority over the sort parameter which means that the sort will be omitted when random is defined.
 
@@ -308,7 +308,7 @@ public class UserService : CrudService<User> {
   public RequestBuilder<User> SomethingCustom (string value) =>
     new RequestBuilder<User> (
       requestMiddleware: this.requestMiddleware,
-      requestMethod: RequestMethod.POST,
+      requestMethod: RequestMethod.Post,
       url: string.Join ("/", this.url, "somethingcustom", value),
       model: new User ());
 }
