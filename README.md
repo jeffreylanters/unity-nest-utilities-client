@@ -78,10 +78,10 @@ public class TestComponent : MonoBehaviour {
   private UserService userService = new UserService ();
 
   private void Test () {
-    this.userService.Get ();
-    this.userService.Get (id: "...");
-    this.userService.Post (model: new User (...));
-    this.userService.Patch (model: new User (...));
+    this.userService.Read ();
+    this.userService.Read (id: "...");
+    this.userService.Create (model: new User (...));
+    this.userService.Update (model: new User (...));
     this.userService.Delete (id: "...");
   }
 }
@@ -94,7 +94,7 @@ public class TestComponent : MonoBehaviour {
   private UserService userService = new UserService ();
 
   private IEnumerator Test () {
-    yield return this.userService.Post (new User ()).Send ();
+    yield return this.userService.Create (new User ()).Send ();
   }
 }
 ```
@@ -106,10 +106,10 @@ public class TestComponent : MonoBehaviour {
   private UserService userService = new UserService ();
 
   private IEnumerator Test () {
-    var request = this.userService.Get ();
+    var request = this.userService.Read ();
     yield return request.Send();
     try {
-      var users = request.GetResponse ();
+      var users = request.ReadResponse ();
     }
     catch (RequestException exception) {
       Debug.Log (exception);
@@ -128,7 +128,7 @@ public class TestComponent : MonoBehaviour {
 
   private IEnumerator Test () {
     var request = this.userService
-      .Get ()
+      .Read ()
       .Limit (amount: 10)
       .Sort (field: "firstName", sortingOptions: SortingOption.Descending)
       .MatchRegex (field: "email", value: "hulan", matchingOptions: MatchingOption.CaseInsensitive | MatchingOption.Global);

@@ -42,21 +42,21 @@ namespace ElRaccoone.NestUtilitiesClient {
     }
 
     /// Returns a new builder requesting many documents.
-    public RequestBuilder<ModelType[]> Get () =>
+    public RequestBuilder<ModelType[]> Read () =>
       new RequestBuilder<ModelType[]> (
         requestMiddleware: this.requestMiddleware,
         requestMethod: RequestMethod.Get,
         url: string.Join ("/", this.url));
 
     /// Returns a new builder requesting one or more specific documents.
-    public RequestBuilder<ModelType[]> Get (params string[] ids) =>
+    public RequestBuilder<ModelType[]> Read (params string[] ids) =>
       new RequestBuilder<ModelType[]> (
         requestMiddleware: this.requestMiddleware,
         requestMethod: RequestMethod.Get,
         url: string.Join ("/", this.url, string.Join (",", ids)));
 
     /// Returns a new builder requesting the creation of a document.
-    public RequestBuilder<ModelType> Post (ModelType model) =>
+    public RequestBuilder<ModelType> Create (ModelType model) =>
       new RequestBuilder<ModelType> (
         requestMiddleware: this.requestMiddleware,
         requestMethod: RequestMethod.Post,
@@ -64,7 +64,7 @@ namespace ElRaccoone.NestUtilitiesClient {
         model: model);
 
     /// Returns a new builder requesting the altering of a document.
-    public RequestBuilder<ModelType> Put (ModelType model) =>
+    public RequestBuilder<ModelType> Update (ModelType model) =>
       new RequestBuilder<ModelType> (
         requestMiddleware: this.requestMiddleware,
         requestMethod: RequestMethod.Put,
