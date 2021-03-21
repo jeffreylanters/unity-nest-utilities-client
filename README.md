@@ -109,7 +109,7 @@ public class TestComponent : MonoBehaviour {
     var request = this.userService.Read ();
     yield return request.Send();
     try {
-      var users = request.ReadResponse ();
+      var users = request.GetResponse ();
     }
     catch (RequestException exception) {
       Debug.Log (exception);
