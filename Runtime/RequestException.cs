@@ -24,7 +24,7 @@ namespace ElRaccoone.NestUtilitiesClient {
     public RequestException (int statusCode, string rawResponseData, string url) {
       this.statusCode = statusCode;
       if (StatusCodeDefinition.IsDefined (typeof (StatusCodeDefinition), statusCode))
-        this.statusCodeDefinition = (StatusCodeDefinition) statusCode;
+        this.statusCodeDefinition = (StatusCodeDefinition)statusCode;
       this.rawResponseData = rawResponseData;
       this.url = url;
     }
