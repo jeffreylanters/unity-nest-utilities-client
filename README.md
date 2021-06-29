@@ -310,5 +310,12 @@ public class UserService : CrudService<User> {
       requestMethod: RequestMethod.Post,
       url: string.Join ("/", this.url, "somethingcustom", value),
       model: new User ());
+
+  public RequestBuilder<User> SomethingEvenMoreCustom (string email, string password) =>
+    new RequestBuilder<User> (
+      requestMiddleware: this.requestMiddleware,
+      requestMethod: RequestMethod.Post,
+      url: string.Join ("/", this.url, "somethingcustom", value),
+      rawBody: JsonUtility.ToJson (new AuthenticationRequest (email, password)));
 }
 ```
