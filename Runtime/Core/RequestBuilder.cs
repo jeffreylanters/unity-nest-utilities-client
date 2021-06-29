@@ -34,6 +34,16 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
       this.requestHandler.SetModel (model);
     }
 
+    /// Instanciates a new request builder with provided (nullable) request
+    /// middleware, a request method, url and raw body as the request body which 
+    /// will all be passed down to the request handler.
+    public RequestBuilder (RequestMiddleware requestMiddleware, RequestMethod requestMethod, string url, string rawBody) {
+      this.requestMiddleware = requestMiddleware;
+      this.requestHandler.SetRequestMethod (requestMethod: requestMethod);
+      this.requestHandler.SetUrl (url: url);
+      this.requestHandler.SetRawBody (rawBody);
+    }
+
     /// This parameter allows you to populate references to other collections in
     /// the response.
     public RequestBuilder<ModelType> Populate (params string[] fields) {
