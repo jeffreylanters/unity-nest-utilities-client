@@ -8,20 +8,20 @@ namespace ElRaccoone.NestUtilitiesClient {
   public abstract class CrudService<ModelType> {
 
     /// The requests's hostname will be used to define the destination.
-    private string hostname { get; } = "";
+    public string hostname { get; private set; } = "";
 
     /// The requests's resource will be used to define the destination.
-    private string resource { get; } = "";
+    public string resource { get; private set; } = "";
 
     /// Defines whether the request should use an insecure protocol. Default set
     /// to false. When enabled, the requests will use the HTTP protoc instead of
     /// the secure HTTPS protocol.
-    private bool useInsecureProtocol { get; } = false;
+    public bool useInsecureProtocol { get; private set; } = false;
 
     /// The request middleware can be set from the initialization of the class.
     /// When set, the middleware will be passed down to the request handlers,
     /// where the actual invoking will happen. Reference may be null.
-    private RequestMiddleware requestMiddleware { get; } = null;
+    public RequestMiddleware requestMiddleware { get; private set; } = null;
 
     /// The destination of the request, this is a combination of the protocol
     /// preferences, the hostname and the resource of the request.
