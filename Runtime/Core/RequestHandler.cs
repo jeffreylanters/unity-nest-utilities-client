@@ -66,9 +66,15 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
 
     /// Sets the body of the request as a raw string, the content type will be
     /// marked as JSON using the Application/JSON flag in the headers.
-    internal void SetModel (ModelType bodyData) {
-      var _bodyDataBytes = Encoding.ASCII.GetBytes (s: JsonUtility.ToJson (bodyData));
-      this.uploadHandler = new UploadHandlerRaw (data: _bodyDataBytes);
+    internal void SetModel (ModelType model) {
+      this.SetRawBody (data: JsonUtility.ToJson (model));
+    }
+
+    /// Sets the body of the request as a raw string, the content type will be
+    /// marked as JSON using the Application/JSON flag in the headers.
+    internal void SetRawBody (string data) {
+      var _dataBytes = Encoding.ASCII.GetBytes (s: data);
+      this.uploadHandler = new UploadHandlerRaw (data: _dataBytes);
       this.uploadHandler.contentType = "application/json";
     }
 
