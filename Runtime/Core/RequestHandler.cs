@@ -85,7 +85,8 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
       this.uploadHandler.contentType = "application/json";
     }
 
-    ///
+    /// Sets the requestMiddleware for this requestHandler to use when creating
+    /// request or manipulating data.
     internal void SetRequestMiddleware (RequestMiddleware requestMiddleware) {
       this.requestMiddleware = requestMiddleware;
     }
