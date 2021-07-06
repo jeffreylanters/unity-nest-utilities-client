@@ -26,6 +26,13 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// Defines whether the request has one or more query parameters.
     private bool hasQueryParameters { get; set; } = false;
 
+    /// <summary>
+    /// The request middleware can be set from the initialization of the class.
+    /// When set, it's overwritten methods will be invoked when the request is
+    /// being or has been sendt. Reference may be null.
+    /// </summary>
+    private RequestMiddleware requestMiddleware { get; set; } = null;
+
     /// Instanciates a new request handler. When the handler is instanciated the
     /// corresponding handlers will be instantiated as well.
     public RequestHandler () {
@@ -76,6 +83,11 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
       var _dataBytes = Encoding.ASCII.GetBytes (s: data);
       this.uploadHandler = new UploadHandlerRaw (data: _dataBytes);
       this.uploadHandler.contentType = "application/json";
+    }
+
+    ///
+    internal void SetRequestMiddleware (RequestMiddleware requestMiddleware) {
+      this.requestMiddleware = requestMiddleware;
     }
 
     /// Sends and yields the actual request. Both hasError, hasResponseData and 

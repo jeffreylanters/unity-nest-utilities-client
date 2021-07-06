@@ -32,6 +32,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// <param name="url">The destination URL.</param>
     public RequestBuilder (RequestMiddleware requestMiddleware, RequestMethod requestMethod, string url) {
       this.requestMiddleware = requestMiddleware;
+      this.requestHandler.SetRequestMiddleware (requestMiddleware: requestMiddleware);
       this.requestHandler.SetRequestMethod (requestMethod: requestMethod);
       this.requestHandler.SetUrl (url: url);
     }
@@ -47,6 +48,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// <param name="model">The request body model.</param>
     public RequestBuilder (RequestMiddleware requestMiddleware, RequestMethod requestMethod, string url, ModelType model) {
       this.requestMiddleware = requestMiddleware;
+      this.requestHandler.SetRequestMiddleware (requestMiddleware: requestMiddleware);
       this.requestHandler.SetRequestMethod (requestMethod: requestMethod);
       this.requestHandler.SetUrl (url: url);
       this.requestHandler.SetModel (model);
@@ -63,6 +65,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// <param name="rawBody">The raw request body.</param>
     public RequestBuilder (RequestMiddleware requestMiddleware, RequestMethod requestMethod, string url, string rawBody) {
       this.requestMiddleware = requestMiddleware;
+      this.requestHandler.SetRequestMiddleware (requestMiddleware: requestMiddleware);
       this.requestHandler.SetRequestMethod (requestMethod: requestMethod);
       this.requestHandler.SetUrl (url: url);
       this.requestHandler.SetRawBody (rawBody);
