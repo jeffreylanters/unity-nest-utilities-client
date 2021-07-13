@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Threading.Tasks;
 
 namespace ElRaccoone.NestUtilitiesClient.Core {
 
@@ -221,41 +222,28 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
 
     /// <summary>
     /// Makes the actual request to the server. Yielded by the request handler,
-    /// the enumerator ends when the request was send. This method cannot catch.
-    /// When the request middleware is defined, these methods will also be invoked.
+    /// the enumerator ends when the request was send. When something went wrong
+    /// while fetching the data, an exception will be thrown. When the request
+    /// middleware is defined, these methods will also be invoked.
     /// </summary>
-    /// <returns>A yieldable routine.</returns>
-    public IEnumerator Send () {
+    /// <returns>The response.</returns>
+    public async Task<ModelType> Send () {
+      var _didCoroutineComplete = false;
       if (this.requestMiddleware != null)
         foreach (var _header in this.requestMiddleware.OnGetHeaders ())
           this.requestHandler.AddHeader (name: _header.name, value: _header.value);
-      yield return this.requestHandler.SendRequest ();
-      if (this.requestHandler.hasError == true && this.requestMiddleware != null)
-        this.requestMiddleware.OnRequestDidCatch (this.requestHandler.GetException ());
-    }
-
-    /// <summary>
-    /// Extracts the response from the made request, returning a model of the
-    /// generic model type. When the request did run into an error, an request
-    /// exception will be thrown.
-    /// </summary>
-    /// <returns>The request's response.</returns>
-    public ModelType GetResponse () {
-      if (this.requestHandler.hasError == false)
-        return this.requestHandler.responseData;
-      throw this.requestHandler.GetException ();
-    }
-
-    /// <summary>
-    /// Extracts the raw response from the made request, returning a string. 
-    /// When the request did run into an error, an request exception will be 
-    /// thrown.
-    /// </summary>
-    /// <returns>The request's raw response.</returns>
-    public string GetRawResponse () {
-      if (this.requestHandler.hasError == false)
-        return this.requestHandler.rawResponseData;
-      throw this.requestHandler.GetException ();
+      RoutineTicker.StartCompletableCoroutine (
+        this.requestHandler.StartSendingCoroutine (),
+        () => _didCoroutineComplete = true);
+      while (_didCoroutineComplete == false)
+        await Task.Yield ();
+      if (this.requestHandler.hasError == true) {
+        var _exception = this.requestHandler.GetException ();
+        if (this.requestMiddleware != null)
+          this.requestMiddleware.OnRequestDidCatch (_exception);
+        throw _exception;
+      }
+      return this.requestHandler.responseData;
     }
   }
 }
