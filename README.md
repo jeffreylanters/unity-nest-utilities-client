@@ -122,7 +122,7 @@ Chainable options can be used for altering the way your API is handling your req
 public class TestComponent : MonoBehaviour {
   private UserService userService = new UserService ();
 
-  private IEnumerator Test () {
+  private async void Test () {
     var users = await this.userService
       .Read ()
       .Limit (amount: 10)
