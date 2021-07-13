@@ -94,7 +94,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// Sends and yields the actual request. Both hasError, hasResponseData and 
     /// the raw response data will always be set when invoking. If no error did
     /// occur and response has body, the response data will be set.
-    internal IEnumerator SendRequest () {
+    internal IEnumerator StartSendingCoroutine () {
       yield return this.SendWebRequest ();
       this.hasError = this.responseCode >= 400 || this.responseCode == 0;
       this.rawResponseData = this.downloadHandler.text;
