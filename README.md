@@ -316,4 +316,13 @@ public class UserService : CrudService<User> {
       url: string.Join ("/", this.url, "somethingcustom", value),
       rawBody: JsonUtility.ToJson (new AuthenticationRequest (email, password)));
 }
+
+// And user your newly created end-points later on!
+public class TestComponent : MonoBehaviour {
+  private UserService userService = new UserService ();
+
+  private async void Login () {
+    var user = await this.userService.SomethingCustom ("hello").Send ();
+  }
+}
 ```
