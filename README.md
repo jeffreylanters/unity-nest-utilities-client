@@ -103,7 +103,7 @@ public class TestComponent : MonoBehaviour {
 
   private async void Test () {
     try {
-      var users = await this.userService.Read.Send();
+      var users = await this.userService.Read ().Send ();
       foreach (var user in users)
         Debug.Log ($"Hello {user.firstName}!")
     }
@@ -322,7 +322,7 @@ public class TestComponent : MonoBehaviour {
   private UserService userService = new UserService ();
 
   private async void Login () {
-    var user = await this.userService.SomethingCustom ("hello").Send ();
+    var user = await this.userService.SomethingCustom ("someValue").Send ();
   }
 }
 ```
