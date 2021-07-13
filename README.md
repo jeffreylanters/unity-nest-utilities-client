@@ -83,32 +83,32 @@ public class TestComponent : MonoBehaviour {
 }
 ```
 
-Once created your Request using the Builder, it's time to send it over to your API. To do this, yield the Send method provided by the builder. This will start the request and send over your data over to the server.
+Once created your Request using the Builder, it's time to send it over to your API. To do this, invoke or await the Send method provided by the builder. This will start the request and send over your data over to the server.
 
 ```csharp
 public class TestComponent : MonoBehaviour {
   private UserService userService = new UserService ();
 
-  private IEnumerator Test () {
-    yield return this.userService.Create (new User ()).Send ();
+  private async void Test () {
+    await this.userService.Create (new User ()).Send ();
   }
 }
 ```
 
-To confirm a request was successful, or get the response body of it, use the GetResponse method after sending your Request. When something went wrong, a request exception will be thrown containing information to debug the problem. Use the GetRawResponse method in order to get the raw response data, this method can also throw an exception.
+To confirm a request was successful, simply wrap it within a Try Catch closure. When something went wrong during the request, a request exception will be thrown containing information to debug the problem such as the status code and the raw response of the server.
 
 ```csharp
 public class TestComponent : MonoBehaviour {
   private UserService userService = new UserService ();
 
-  private IEnumerator Test () {
-    var request = this.userService.Read ();
-    yield return request.Send();
+  private async void Test () {
     try {
-      var users = request.GetResponse ();
+      var users = await this.userService.Read.Send();
+      foreach (var user in users)
+        Debug.Log ($"Hello {user.firstName}!")
     }
     catch (RequestException exception) {
-      Debug.Log (exception);
+      Debug.Log ($"Something went wrong! Error {exception.statusCode}");
     }
   }
 }
@@ -123,11 +123,12 @@ public class TestComponent : MonoBehaviour {
   private UserService userService = new UserService ();
 
   private IEnumerator Test () {
-    var request = this.userService
+    var users = await this.userService
       .Read ()
       .Limit (amount: 10)
       .Sort (field: "firstName", sortingOptions: SortingOption.Descending)
-      .MatchRegex (field: "email", value: "hulan", matchingOptions: MatchingOption.CaseInsensitive | MatchingOption.Global);
+      .MatchRegex (field: "email", value: "hulan", matchingOptions: MatchingOption.CaseInsensitive | MatchingOption.Global)
+      .Send ();
   }
 }
 ```
