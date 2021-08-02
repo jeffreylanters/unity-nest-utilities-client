@@ -302,18 +302,24 @@ public class UserService : CrudService<User> {
     resource: "user"
   ) { }
 
-  public RequestBuilder<User> SomethingCustom (string value) =>
+  public RequestBuilder<User> GetUserInfo (string value) =>
     new RequestBuilder<User> (
       requestMiddleware: this.requestMiddleware,
       requestMethod: RequestMethod.Post,
-      url: string.Join ("/", this.url, "somethingcustom", value),
+      url: string.Join ("/", this.url, "info", value));
+
+  public RequestBuilder<User> CreateUserInfo () =>
+    new RequestBuilder<User> (
+      requestMiddleware: this.requestMiddleware,
+      requestMethod: RequestMethod.Post,
+      url: string.Join ("/", this.url, "info"),
       model: new User ());
 
-  public RequestBuilder<User> SomethingEvenMoreCustom (string email, string password) =>
+  public RequestBuilder<User> GetUserInfo (string email, string password) =>
     new RequestBuilder<User> (
       requestMiddleware: this.requestMiddleware,
       requestMethod: RequestMethod.Post,
-      url: string.Join ("/", this.url, "somethingcustom", value),
+      url: string.Join ("/", this.url, "info", value),
       rawBody: JsonUtility.ToJson (new AuthenticationRequest (email, password)));
 }
 
