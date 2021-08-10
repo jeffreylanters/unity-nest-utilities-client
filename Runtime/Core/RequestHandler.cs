@@ -4,6 +4,12 @@ using UnityEngine.Networking;
 using UnityEngine;
 using System;
 
+#if NEST_UTILITIES_CLIENT_USE_JSON_DOT_NET
+// If this compiler flag is provided, we're going to import the Json dot Net 
+// module to serialize and deserialize the raw response data.
+using Newtonsoft.Json;
+#endif
+
 namespace ElRaccoone.NestUtilitiesClient.Core {
 
   /// The request handler is responsible for sending the actual request over to
@@ -74,7 +80,15 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// Sets the body of the request as a raw string, the content type will be
     /// marked as JSON using the Application/JSON flag in the headers.
     internal void SetModel (ModelType model) {
+#if NEST_UTILITIES_CLIENT_USE_JSON_DOT_NET
+      // If this compiler flag is provided, we're going to use the Json dot Net
+      // module to serialize the model.
+      JsonConvert.SerializeObject (value: model)
+#else
+      // If no specific deserializer compiler flag is provided, we're going to
+      // use the built-in serializer by Unity to serialize the model.
       this.SetRawBody (data: JsonUtility.ToJson (model));
+#endif
     }
 
     /// Sets the body of the request as a raw string, the content type will be
@@ -100,9 +114,20 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
       this.rawResponseData = this.downloadHandler.text;
       this.hasResponseData = this.rawResponseData.Trim ().Length > 0;
       if (this.hasError == false && this.hasResponseData == true)
+#if NEST_UTILITIES_CLIENT_USE_JSON_DOT_NET
+        // If this compiler flag is provided, we're going to use the Json dot 
+        // Net module to deserialize the raw response data.
+        this.responseData = typeof (ModelType).IsArray ?
+          JsonConvert.DeserializeObject<JSONArrayWrapper<ResponseType>> (value: $"{{\"array\":{this.rawResponseData}}}").array :
+          JsonConvert.DeserializeObject<ResponseType> (value: this.rawResponseData);
+#else
+        // If no specific deserializer compiler flag is provided, we're going to
+        // use the built-in deserializer by Unity to deserialize the raw 
+        // response data.
         this.responseData = typeof (ModelType).IsArray ?
           JsonUtility.FromJson<JsonArrayWrapper<ModelType>> (json: $"{{\"array\":{this.rawResponseData}}}").array :
           JsonUtility.FromJson<ModelType> (json: this.rawResponseData);
+#endif
     }
 
     /// Returns a request exception containing meta data about the request.
