@@ -52,7 +52,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
       this.requestHandler.SetRequestMiddleware (requestMiddleware: requestMiddleware);
       this.requestHandler.SetRequestMethod (requestMethod: requestMethod);
       this.requestHandler.SetUrl (url: url);
-      this.requestHandler.SetModel (model);
+      this.requestHandler.SetModel (model: model);
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
       this.requestHandler.SetRequestMiddleware (requestMiddleware: requestMiddleware);
       this.requestHandler.SetRequestMethod (requestMethod: requestMethod);
       this.requestHandler.SetUrl (url: url);
-      this.requestHandler.SetRawBody (rawBody);
+      this.requestHandler.SetRawBody (data: rawBody);
     }
 
     /// <summary>
