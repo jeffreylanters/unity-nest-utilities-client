@@ -83,7 +83,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
 #if NEST_UTILITIES_CLIENT_USE_JSON_DOT_NET
       // If this compiler flag is provided, we're going to use the Json dot Net
       // module to serialize the model.
-      JsonConvert.SerializeObject (value: model);
+      this.SetRawBody (JsonConvert.SerializeObject (value: model));
 #else
       // If no specific deserializer compiler flag is provided, we're going to
       // use the built-in serializer by Unity to serialize the model.
