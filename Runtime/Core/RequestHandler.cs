@@ -83,7 +83,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
 #if NEST_UTILITIES_CLIENT_USE_JSON_DOT_NET
       // If this compiler flag is provided, we're going to use the Json dot Net
       // module to serialize the model.
-      JsonConvert.SerializeObject (value: model)
+      JsonConvert.SerializeObject (value: model);
 #else
       // If no specific deserializer compiler flag is provided, we're going to
       // use the built-in serializer by Unity to serialize the model.
@@ -113,13 +113,13 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
       this.hasError = this.responseCode >= 400 || this.responseCode == 0;
       this.rawResponseData = this.downloadHandler.text;
       this.hasResponseData = this.rawResponseData.Trim ().Length > 0;
-      if (this.hasError == false && this.hasResponseData == true)
+      if (this.hasError == false && this.hasResponseData == true) {
 #if NEST_UTILITIES_CLIENT_USE_JSON_DOT_NET
         // If this compiler flag is provided, we're going to use the Json dot 
         // Net module to deserialize the raw response data.
         this.responseData = typeof (ModelType).IsArray ?
-          JsonConvert.DeserializeObject<JSONArrayWrapper<ResponseType>> (value: $"{{\"array\":{this.rawResponseData}}}").array :
-          JsonConvert.DeserializeObject<ResponseType> (value: this.rawResponseData);
+          JsonConvert.DeserializeObject<JsonArrayWrapper<ModelType>> (value: $"{{\"array\":{this.rawResponseData}}}").array :
+          JsonConvert.DeserializeObject<ModelType> (value: this.rawResponseData);
 #else
         // If no specific deserializer compiler flag is provided, we're going to
         // use the built-in deserializer by Unity to deserialize the raw 
@@ -128,6 +128,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
           JsonUtility.FromJson<JsonArrayWrapper<ModelType>> (json: $"{{\"array\":{this.rawResponseData}}}").array :
           JsonUtility.FromJson<ModelType> (json: this.rawResponseData);
 #endif
+      }
     }
 
     /// Returns a request exception containing meta data about the request.
