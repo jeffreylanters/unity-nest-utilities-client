@@ -332,3 +332,15 @@ public class TestComponent : MonoBehaviour {
   }
 }
 ```
+
+## Using a different JSON (De)Serializer
+
+Nest Utilities Client for Unity used the built-in JSON (De)Serializer. The module allows for using other (De)Serializer using compiler flags. Keep in mind that these JSON (De)Serializers need to be added to your project manually in order to work.
+
+#### Json dot Net
+
+Add the following compiler flag to your project settings to use the JSON dot Net (De)Serializer.
+
+```
+NEST_UTILITIES_CLIENT_USE_JSON_DOT_NET
+```
