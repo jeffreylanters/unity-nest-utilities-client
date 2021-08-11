@@ -48,7 +48,14 @@ namespace ElRaccoone.NestUtilitiesClient {
         requestMethod: RequestMethod.Get,
         url: string.Join ("/", this.url));
 
-    /// Returns a new builder requesting one or more specific documents.
+    /// Returns a new builder requesting one specific documents.
+    public RequestBuilder<ModelType> Read (string id) =>
+      new RequestBuilder<ModelType> (
+        requestMiddleware: this.requestMiddleware,
+        requestMethod: RequestMethod.Get,
+        url: string.Join ("/", this.url, id));
+
+    /// Returns a new builder requesting multiple specific documents.
     public RequestBuilder<ModelType[]> Read (params string[] ids) =>
       new RequestBuilder<ModelType[]> (
         requestMiddleware: this.requestMiddleware,
