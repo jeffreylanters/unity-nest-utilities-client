@@ -59,8 +59,8 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     }
 
     /// Adds a query paramter to the request url.
-    internal void AddQueryParameter (string name, string value) {
-      this.url += string.Join (string.Empty, this.hasQueryParameters == true ? "&" : "?", name, "=", value);
+    internal void AddQueryParameter (string name, object value) {
+      this.url += string.Join (string.Empty, this.hasQueryParameters == true ? "&" : "?", name, "=", value.ToString ());
       this.hasQueryParameters = true;
     }
 
