@@ -4,8 +4,8 @@
 
 [![license](https://img.shields.io/badge/mit-license-red.svg?style=for-the-badge)](https://github.com/jeffreylanters/unity-nest-utilities-client/blob/master/LICENSE.md)
 [![openupm](https://img.shields.io/npm/v/nl.elraccoone.nest-utilities-client?label=UPM&registry_uri=https://package.openupm.com&style=for-the-badge&color=232c37)](https://openupm.com/packages/nl.elraccoone.nest-utilities-client/)
-[![build](https://img.shields.io/badge/build-passing-brightgreen.svg?style=for-the-badge)]()
-[![deployment](https://img.shields.io/badge/state-success-brightgreen.svg?style=for-the-badge)]()
+[![build](https://img.shields.io/badge/build-passing-brightgreen.svg?style=for-the-badge)](https://github.com/jeffreylanters/unity-nest-utilities-client/actions)
+[![deployment](https://img.shields.io/badge/state-success-brightgreen.svg?style=for-the-badge)](https://github.com/jeffreylanters/unity-nest-utilities-client/deployments)
 [![stars](https://img.shields.io/github/stars/jeffreylanters/unity-nest-utilities-client.svg?style=for-the-badge&color=fe8523&label=stargazers)](https://github.com/jeffreylanters/unity-nest-utilities-client/stargazers)
 [![size](https://img.shields.io/github/languages/code-size/jeffreylanters/unity-nest-utilities-client?style=for-the-badge)](https://github.com/jeffreylanters/unity-nest-utilities-client/blob/master/Runtime)
 [![sponsors](https://img.shields.io/github/sponsors/jeffreylanters?color=E12C9A&style=for-the-badge)](https://github.com/sponsors/jeffreylanters)
