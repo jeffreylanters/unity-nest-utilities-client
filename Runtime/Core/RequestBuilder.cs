@@ -131,7 +131,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// <param name="field">The field which should be matched.</param>
     /// <param name="value">The value to match the field against.</param>
     /// <returns>The request builder.</returns>
-    public RequestBuilder<ModelType> MatchExact (string field, string value) {
+    public RequestBuilder<ModelType> MatchExact (string field, object value) {
       this.requestHandler.AddQueryParameter (name: $"match[{field}]", value: value);
       return this;
     }
@@ -143,7 +143,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// <param name="field">The field which should be matched.</param>
     /// <param name="value">The regex to match the field against.</param>
     /// <returns>The request builder.</returns>
-    public RequestBuilder<ModelType> MatchRegex (string field, string value) {
+    public RequestBuilder<ModelType> MatchRegex (string field, object value) {
       this.requestHandler.AddQueryParameter (name: $"match[{field}][$regex]", value: value);
       return this;
     }
@@ -157,7 +157,7 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     /// <param name="value">The regex to match the field against.</param>
     /// <param name="matchingOptions">The regex options.</param>
     /// <returns>The request builder.</returns>
-    public RequestBuilder<ModelType> MatchRegex (string field, string value, MatchingOption matchingOptions) {
+    public RequestBuilder<ModelType> MatchRegex (string field, object value, MatchingOption matchingOptions) {
       var _regexOptions = "";
       if (matchingOptions.HasFlag (MatchingOption.Global) == true)
         _regexOptions += "g";
