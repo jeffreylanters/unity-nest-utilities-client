@@ -149,6 +149,20 @@ namespace ElRaccoone.NestUtilitiesClient.Core {
     }
 
     /// <summary>
+    /// This parameter allows you to match the response data based on a range
+    /// filter on a specific field.
+    /// </summary>
+    /// <param name="field">The field which should be matched.</param>
+    /// <param name="minimumValue">The minimum value to match the field against.</param>
+    /// <param name="maximumValue">The maximum value to match the field against.</param>
+    /// <returns>The request builder.</returns>
+    public RequestBuilder<ModelType> MatchRange (string field, object minimumValue, object maximumValue) {
+      this.requestHandler.AddQueryParameter (name: $"match[{field}][$gt]", value: minimumValue);
+      this.requestHandler.AddQueryParameter (name: $"match[{field}][$lt]", value: maximumValue);
+      return this;
+    }
+
+    /// <summary>
     /// This parameter allows you to match the response data based on a regex
     /// filter on a specific field. One or more matching options will be 
     /// translated into regex options.
