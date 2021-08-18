@@ -178,7 +178,7 @@ public RequestBuilder<ModelType> Sort (string field, SortingOption sortingOption
 This parameter allows you to match the response data on a specific exact value on a specific field including the casing.
 
 ```csharp
-public RequestBuilder<ModelType> MatchExact (string field, string value);
+public RequestBuilder<ModelType> MatchExact (string field, object value);
 ```
 
 #### Match Regex
@@ -188,7 +188,7 @@ public RequestBuilder<ModelType> MatchExact (string field, string value);
 This parameter allows you to match the response data based on a regex filter on a specific field.
 
 ```csharp
-public RequestBuilder<ModelType> MatchRegex (string field, string value);
+public RequestBuilder<ModelType> MatchRegex (string field, object value);
 ```
 
 > This option is only available on Get / Read requests.
@@ -196,7 +196,17 @@ public RequestBuilder<ModelType> MatchRegex (string field, string value);
 This parameter allows you to match the response data based on a regex filter on a specific field. One or more matching options will be translated into regex options.
 
 ```csharp
-public RequestBuilder<ModelType> MatchRegex (string field, string value, MatchingOption matchingOptions);
+public RequestBuilder<ModelType> MatchRegex (string field, object value, MatchingOption matchingOptions);
+```
+
+#### Match Range
+
+> This option is only available on Get / Read requests.
+
+This parameter allows you to match the response data on a specific range value on a specific field.
+
+```csharp
+public RequestBuilder<ModelType> MatchRange (string field, object minimumValue, object maximumValue);
 ```
 
 #### Offset
